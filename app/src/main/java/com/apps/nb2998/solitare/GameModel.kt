@@ -1,4 +1,6 @@
-class GameModel {
+import android.util.Log
+
+object GameModel {
     val deck = Deck()
     val wastePile: MutableList<Card> = mutableListOf()
     val foundationPiles: Array<FoundationPile> = arrayOf(FoundationPile(spades), FoundationPile(hearts),
@@ -6,12 +8,13 @@ class GameModel {
     val tableauPiles = Array(7, { TableauPile() })
 
     fun resetGame() {
+        wastePile.clear()
         deck.reset()
         foundationPiles.forEach { it.reset() }
-        tableauPiles.forEachIndexed({ i, tableauPile ->
+        tableauPiles.forEachIndexed{ i, tableauPile ->
             val cardsInPile = Array(i + 1, { deck.drawCard() }).toMutableList()
             tableauPiles[i] = TableauPile(cardsInPile)
-        })
+        }
     }
 
     fun onDeckTap() {
@@ -34,24 +37,24 @@ class GameModel {
         }
     }
 
-    fun onFoundationPileTap(foundationIndex: Int){
+    fun onFoundationPileTap(foundationIndex: Int) {
         val foundationPile = foundationPiles[foundationIndex]
-        if(foundationPile.cards.size>0){
+        if (foundationPile.cards.size > 0) {
             val card = foundationPile.cards.last()
-            if(playCard(card)) foundationPile.removeCard(card)
+            if (playCard(card)) foundationPile.removeCard(card)
         }
     }
 
-    fun onTableauTop(tableauIndex: Int, cardIndex: Int){
+    fun onTableauTap(tableauIndex: Int, cardIndex: Int) {
         val tableauPile = tableauPiles[tableauIndex]
-        if(tableauPile.cards.size>0){
-            if(playCards(tableauPile.cards)) tableauPile.removeCard(cardIndex)
+        if (tableauPile.cards.size > 0) {
+            if (playCards(tableauPile.cards)) tableauPile.removeCard(cardIndex)
         }
     }
 
     private fun playCards(cards: MutableList<Card>): Boolean {
-        if(cards.size==1) return playCard(cards.first())
-        else{
+        if (cards.size == 1) return playCard(cards.first())
+        else {
             tableauPiles.forEach { return (it.addCard(cards)) }
         }
         return false
@@ -65,5 +68,31 @@ class GameModel {
             if (it.addCard(mutableListOf(card))) return true;
         }
         return false
+    }
+
+    fun debugPrint() {
+        GameModel.onDeckTap()
+        var p = ""
+        p += "\n"
+        var firstLine = if (wastePile.isNotEmpty()) "${wastePile.last()}" else "___"
+        firstLine.padEnd(18)
+        foundationPiles.forEach {
+            firstLine += if (it.cards.isNotEmpty()) "${it.cards.last()}" else "___"
+            firstLine+="   "
+        }
+//        Log.d("tag", firstLine)
+//        Log.d("tag", "\n")
+        p += firstLine
+        for (i in 0..12) {
+            var row = ""
+            tableauPiles.forEach {
+                row += if (it.cards.size > i) "${it.cards[i]}" else "   "
+                row += "   "
+            }
+//            Log.d("tag", row)
+            p += "\n"
+            p += row
+        }
+        Log.d("tag", p)
     }
 }
