@@ -1,5 +1,3 @@
-import android.util.Log
-
 object GameModel {
     val deck = Deck()
     val wastePile: MutableList<Card> = mutableListOf()
@@ -9,10 +7,10 @@ object GameModel {
 
     fun resetGame() {
         wastePile.clear()
-        deck.reset()
         foundationPiles.forEach { it.reset() }
+        deck.reset()
         tableauPiles.forEachIndexed{ i, tableauPile ->
-            val cardsInPile = Array(i + 1, { deck.drawCard() }).toMutableList()
+            val cardsInPile : MutableList<Card> = Array(i + 1, { deck.drawCard() }).toMutableList()
             tableauPiles[i] = TableauPile(cardsInPile)
         }
     }
@@ -62,16 +60,16 @@ object GameModel {
 
     private fun playCard(card: Card): Boolean {
         foundationPiles.forEach {
-            if (it.addCard(card)) return true;
+            if (it.addCard(card)) return true
         }
         tableauPiles.forEach {
-            if (it.addCard(mutableListOf(card))) return true;
+            if (it.addCard(mutableListOf(card))) return true
         }
         return false
     }
 
     fun debugPrint() {
-        GameModel.onDeckTap()
+//        GameModel.onDeckTap()
         var p = ""
         p += "\n"
         var firstLine = if (wastePile.isNotEmpty()) "${wastePile.last()}" else "___"
@@ -83,6 +81,7 @@ object GameModel {
 //        Log.d("tag", firstLine)
 //        Log.d("tag", "\n")
         p += firstLine
+        p += "\n"
         for (i in 0..12) {
             var row = ""
             tableauPiles.forEach {
@@ -94,5 +93,6 @@ object GameModel {
             p += row
         }
         Log.d("tag", p)
+
     }
 }
