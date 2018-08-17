@@ -11,8 +11,8 @@ object GameModel {
         wastePile.clear()
         foundationPiles.forEach { it.reset() }
         deck.reset()
-        tableauPiles.forEachIndexed{ i, tableauPile ->
-            val cardsInPile : MutableList<Card> = Array(i + 1, { deck.drawCard() }).toMutableList()
+        tableauPiles.forEachIndexed { i, tableauPile ->
+            val cardsInPile: MutableList<Card> = Array(i + 1, { deck.drawCard() }).toMutableList()
             tableauPiles[i] = TableauPile(cardsInPile)
         }
     }
@@ -48,7 +48,10 @@ object GameModel {
     fun onTableauTap(tableauIndex: Int, cardIndex: Int) {
         val tableauPile = tableauPiles[tableauIndex]
         if (tableauPile.cards.size > 0) {
-            if (playCards(tableauPile.cards)) tableauPile.removeCard(cardIndex)
+            if (tableauPile.cards[cardIndex].faceUp) {
+                val cards = tableauPile.cards.subList(cardIndex, tableauPile.cards.lastIndex + 1)
+                if (playCards(cards)) tableauPile.removeCards(cardIndex)
+            }
         }
     }
 
@@ -78,7 +81,7 @@ object GameModel {
         firstLine.padEnd(18)
         foundationPiles.forEach {
             firstLine += if (it.cards.isNotEmpty()) "${it.cards.last()}" else "___"
-            firstLine+="   "
+            firstLine += "   "
         }
 //        Log.d("tag", firstLine)
 //        Log.d("tag", "\n")

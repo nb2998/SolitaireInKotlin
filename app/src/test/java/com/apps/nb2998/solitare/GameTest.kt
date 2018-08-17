@@ -1,3 +1,4 @@
+package com.apps.nb2998.solitare
 import org.junit.Test
 
 class GameTest {

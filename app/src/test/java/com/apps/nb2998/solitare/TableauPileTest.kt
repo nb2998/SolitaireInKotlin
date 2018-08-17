@@ -1,3 +1,4 @@
+package com.apps.nb2998.solitare
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -20,7 +21,7 @@ class TableauPileTest {
         //arrange
         val tableauPile = TableauPile(mutableListOf(Card(4, spades), Card(3, hearts), Card(2, clubs), Card(1, diamonds)))
         //act
-        tableauPile.removeCard(1)
+        tableauPile.removeCards(1)
         // assert
         assertEquals(mutableListOf(Card(4, spades, true)), tableauPile.cards)
     }

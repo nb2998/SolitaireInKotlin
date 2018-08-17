@@ -16,8 +16,8 @@ class FoundationPileView(ctx: Context, val index: Int): ImageView(ctx) {
     }
 
     fun update(){
-        val cards = GameModel.foundationPiles[index].cards
-        imageResource = if(cards.isNotEmpty()) getResourceForCard(cards[index]) else wastePileDrawable
+        val cards= GameModel.foundationPiles[index].cards
+        imageResource = if(cards.isNotEmpty()) getResourceForCard(cards.last()) else wastePileDrawable
     }
 }
 

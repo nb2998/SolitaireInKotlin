@@ -18,14 +18,14 @@ class TableauPile(var cards: MutableList<Card> = mutableListOf()) {
         return false
     }
 
-    fun removeCard(tappedIndex: Int) {
+    fun removeCards(tappedIndex: Int) {
         for (i in tappedIndex..cards.lastIndex) {
-            cards.removeAt(tappedIndex) // not i as size reducing
+            cards.removeAt(tappedIndex)
         }
-
-        if (cards.size > 0) cards.last().faceUp = true
+        if (cards.size > 0) {
+            cards.last().faceUp = true
+        }
     }
-
     private fun suitCheck(c1: Card, c2: Card): Boolean {
         if (c1.suit in redSuits && c2.suit in blackSuits) return true
         if (c1.suit in blackSuits && c2.suit in redSuits) return true
