@@ -1,3 +1,4 @@
+package com.apps.nb2998.solitare
 object GamePresenter {
     var view: GameView? = null
     fun onDeckTap() {

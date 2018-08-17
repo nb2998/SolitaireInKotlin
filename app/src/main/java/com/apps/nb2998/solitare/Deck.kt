@@ -1,3 +1,4 @@
+package com.apps.nb2998.solitare
 class Deck {
 
     //    anonymous function to be passed as parameter to Array(); just remove the function name

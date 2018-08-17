@@ -1,3 +1,4 @@
+package com.apps.nb2998.solitare
 class FoundationPile(val suit: String) {
     val cards: MutableList<Card> = mutableListOf()
     fun reset() {

@@ -1,3 +1,4 @@
+package com.apps.nb2998.solitare
 val hearts = "Hearts"
 val diamonds = "Diamonds"
 val spades = "Spades"

@@ -1,3 +1,5 @@
+package com.apps.nb2998.solitare
+
 object GameModel {
     val deck = Deck()
     val wastePile: MutableList<Card> = mutableListOf()

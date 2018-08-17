@@ -1,3 +1,5 @@
+package com.apps.nb2998.solitare
+
 class TableauPile(var cards: MutableList<Card> = mutableListOf()) {
     init { // last card should face up
         if (cards.isNotEmpty()) cards.last().faceUp = true
