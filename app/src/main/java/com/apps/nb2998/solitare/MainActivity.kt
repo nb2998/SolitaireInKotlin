@@ -80,8 +80,6 @@ class MainActivity : AppCompatActivity(), GameView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        GameModel.resetGame()
-        update()
         return true
     }
 }

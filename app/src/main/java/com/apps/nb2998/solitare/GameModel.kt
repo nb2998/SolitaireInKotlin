@@ -1,5 +1,7 @@
 package com.apps.nb2998.solitare
 
+import android.widget.Toast
+
 object GameModel {
     val deck = Deck()
     val wastePile: MutableList<Card> = mutableListOf()
@@ -32,7 +34,10 @@ object GameModel {
         if (wastePile.size > 0) {
             val card = wastePile.last()
             foundationPiles.forEach {
-                if (playCard(card)) wastePile.remove(card)
+                if (playCard(card)) {
+                    wastePile.remove(card)
+                    return
+                }
             }
         }
     }
@@ -50,7 +55,9 @@ object GameModel {
         if (tableauPile.cards.size > 0) {
             if (tableauPile.cards[cardIndex].faceUp) {
                 val cards = tableauPile.cards.subList(cardIndex, tableauPile.cards.lastIndex + 1)
-                if (playCards(cards)) tableauPile.removeCards(cardIndex)
+                if (playCards(cards)) {
+                    tableauPile.removeCards(cardIndex)
+                }
             }
         }
     }
@@ -58,7 +65,9 @@ object GameModel {
     private fun playCards(cards: MutableList<Card>): Boolean {
         if (cards.size == 1) return playCard(cards.first())
         else {
-            tableauPiles.forEach { return (it.addCard(cards)) }
+            tableauPiles.forEach {
+                 if(it.addCard(cards)) return true
+            }
         }
         return false
     }
