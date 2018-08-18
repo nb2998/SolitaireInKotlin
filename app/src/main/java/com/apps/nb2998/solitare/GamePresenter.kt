@@ -20,4 +20,8 @@ object GamePresenter {
         GameModel.onTableauTap(foundationIndex, cardIindex)
         view?.update()
     }
+
+    fun gameWon(){
+        view?.gameWon()
+    }
 }

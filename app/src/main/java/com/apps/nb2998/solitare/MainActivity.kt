@@ -1,8 +1,10 @@
 package com.apps.nb2998.solitare
 
 import android.content.Context
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -21,6 +23,7 @@ fun View.getResourceForCard(card: Card): Int {
 }
 
 class MainActivity : AppCompatActivity(), GameView {
+
     var deckView: DeckView? = null
     var wastePileView: WastePileView? = null
     var foundationPileViews: Array<FoundationPileView?> = arrayOfNulls(4)
@@ -80,6 +83,22 @@ class MainActivity : AppCompatActivity(), GameView {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        resetGame()
         return true
     }
+
+    override fun gameWon() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Yayyy! You Won the game!")
+        builder.setMessage("Want to reset the game?")
+        builder.setPositiveButton("Yes") { dialog: DialogInterface?, which: Int -> resetGame()}
+        builder.setNegativeButton("No") { dialog: DialogInterface?, which: Int -> dialog?.cancel() }
+        builder.create().show()
+    }
+
+    private fun resetGame(){
+        GameModel.resetGame()
+        update()
+    }
+
 }
