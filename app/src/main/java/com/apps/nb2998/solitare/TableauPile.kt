@@ -26,10 +26,18 @@ class TableauPile(var cards: MutableList<Card> = mutableListOf()) {
             cards.last().faceUp = true
         }
     }
+
     private fun suitCheck(c1: Card, c2: Card): Boolean {
         if (c1.suit in redSuits && c2.suit in blackSuits) return true
         if (c1.suit in blackSuits && c2.suit in redSuits) return true
         return false
+    }
 
+    fun addCardWhenEmptyPile(newCards: MutableList<Card>): Boolean {
+        if (cards.size == 0) {
+            cards.addAll(newCards)
+            return true
+        }
+        return false
     }
 }

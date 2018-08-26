@@ -87,6 +87,10 @@ object GameModel {
             tableauPiles.forEach {
                 if (it.addCard(cards)) return true
             }
+
+            tableauPiles.forEach {
+                if(it.addCardWhenEmptyPile(cards)) return true
+            }
         }
         return false
     }
@@ -97,6 +101,9 @@ object GameModel {
         }
         tableauPiles.forEach {
             if (it.addCard(mutableListOf(card))) return true
+        }
+        tableauPiles.forEach {
+            if (it.addCardWhenEmptyPile(mutableListOf(card))) return true
         }
         return false
     }
