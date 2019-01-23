@@ -2,6 +2,7 @@ package com.apps.nb2998.solitare
 
 import android.content.Context
 import android.content.DialogInterface
+import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -32,6 +33,7 @@ class MainActivity : AppCompatActivity(), GameView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        window.decorView.backgroundColor = Color.parseColor("#32CD32")
         GamePresenter.view = this
         GameModel.resetGame()
 
